@@ -41,7 +41,8 @@ function element(base, opts, children) {
       'base must be a String, something with cloneNode, or falsy');
   }
   if (children) {
-    if (typeof children == 'string') {
+    if (typeof children == 'string' ||
+      children.length == 1 && typeof children[0] == 'string') {
       if (elem) {
         elem.textContent = children;
       } else {
@@ -50,7 +51,11 @@ function element(base, opts, children) {
     } else if (typeof children.length == 'number') {
       var frag = document.createDocumentFragment();
       for (i = 0; i < children.length; i++) {
-        frag.appendChild(children[i]);
+        if (typeof children[i] == 'string') {
+          frag.appendChild(document.createTextNode(children[i]));
+        } else {
+          frag.appendChild(children[i]);
+        }
       }
       if (elem) {
         elem.appendChild(frag);
