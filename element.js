@@ -1,5 +1,7 @@
 function element(base, opts, children) {
   "use strict";
+  var classList = [];
+
   if (typeof base != 'string' && !base.cloneNode) {
     children = base;
     base = null;
@@ -7,11 +9,36 @@ function element(base, opts, children) {
     children = opts;
     opts = null;
   }
+
+  opts = opts || {};
   var elem = null;
+  var i;
+
   if (base.cloneNode) {
     elem = base.cloneNode(!children);
+  } else if (typeof base == 'string') {
+    var tagName;
+    var words = base.match(/(^|[\.\#])[^\.\#]*/g);
+    i = 0;
+    if (words[0][0] == '.' || words[0][0] == '#') {
+      // default to 'div', Jade-style
+      tagName = 'div';
+    } else {
+      tagName = words[0];
+      i = 1;
+    }
+    while (i < words.length) {
+      if (words[i][0] == '.') {
+        classList.push(words[i].slice(1));
+      } else if (words[i][0] == '#') {
+        opts.id = words[i].slice(1);
+      }
+      i++;
+    }
+    elem = document.createElement(tagName);
   } else if (base) {
-    elem = document.createElement(base);
+    throw new TypeError(
+      'base must be a String, something with cloneNode, or falsy');
   }
   if (children) {
     if (typeof children == 'string') {
@@ -22,7 +49,7 @@ function element(base, opts, children) {
       }
     } else if (typeof children.length == 'number') {
       var frag = document.createDocumentFragment();
-      for (var i = 0; i < children.length; i++) {
+      for (i = 0; i < children.length; i++) {
         frag.appendChild(children[i]);
       }
       if (elem) {
@@ -38,17 +65,20 @@ function element(base, opts, children) {
       }
     }
   }
-  if (opts) {
-    for (var opt in opts) {
-      if (Object.prototype.hasOwnProperty.call(opts, opt)) switch (opt) {
-        case 'classList':
-          elem.className = opts.classList.join(' ');
-          break;
-        default:
-          elem[opt] = opts[opt];
-      }
+
+  for (var opt in opts) {
+    if (Object.prototype.hasOwnProperty.call(opts, opt)) switch (opt) {
+      case 'classList':
+        Array.prototype.push.apply(classList, opts.classList);
+        break;
+      case 'className':
+        classList.push(opts.className);
+      default:
+        elem[opt] = opts[opt];
     }
   }
+
+  elem.className = classList.join(' ');
   return elem;
 }
 
