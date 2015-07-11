@@ -1,25 +1,40 @@
 function element(base, opts, children) {
-  if (opts && typeof opts.length == 'number') {
+  if (typeof base != 'string' && !base.cloneNode) {
+    children = base;
+    base = null;
+  } else if (opts && typeof opts.length == 'number') {
     children = opts;
     opts = null;
   }
-  var elem;
+  var elem = null;
   if (base.cloneNode) {
     elem = base.cloneNode(!children);
-  } else {
+  } else if (base) {
     elem = document.createElement(base);
   }
   if (children) {
     if (typeof children == 'string') {
-      elem.textContent = children;
-    } else if (children.length) {
+      if (elem) {
+        elem.textContent = children;
+      } else {
+        elem = document.createTextNode(children);
+      }
+    } else if (typeof children.length == 'number') {
       var frag = document.createDocumentFragment();
       for (var i = 0; i < children.length; i++) {
         frag.appendChild(children[i]);
       }
-      elem.appendChild(frag);
-    } else if (children.length !== 0) {
-      elem.appendChild(children);
+      if (elem) {
+        elem.appendChild(frag);
+      } else {
+        elem = frag;
+      }
+    } else {
+      if (elem) {
+        elem.appendChild(children);
+      } else {
+        elem = children;
+      }
     }
   }
   if (opts) {
