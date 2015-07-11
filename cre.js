@@ -1,4 +1,4 @@
-function element(base, opts, children) {
+function cre(base, opts, children) {
   "use strict";
   var classList = [];
 
@@ -94,13 +94,13 @@ function element(base, opts, children) {
   return elem;
 }
 
-element.svg = function elementSvg(base, opts, children) {
+cre.svg = function elementSvg(base, opts, children) {
   "use strict";
   base = base || 'svg';
   if (!base.cloneNode) {
     base = document.createElementNS(base, "http://www.w3.org/2000/svg");
   }
-  element(base, opts, children);
+  cre(base, opts, children);
 };
 
-element.text = document.createTextNode;
+cre.text = document.createTextNode;

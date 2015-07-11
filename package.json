@@ -1,0 +1,25 @@
+{
+  "name": "cre",
+  "version": "0.1.1",
+  "description": "A nicer way to create DOM content.",
+  "main": "cre.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stuartpb/cre.git"
+  },
+  "keywords": [
+    "DOM",
+    "createElement",
+    "createDocumentFragment",
+    "cloneNode"
+  ],
+  "author": "Stuart P. Bentley <stuart@testtrack4.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stuartpb/cre/issues"
+  },
+  "homepage": "https://github.com/stuartpb/cre"
+}
