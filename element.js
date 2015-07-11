@@ -1,4 +1,5 @@
 function element(base, opts, children) {
+  "use strict";
   if (typeof base != 'string' && !base.cloneNode) {
     children = base;
     base = null;
@@ -52,6 +53,7 @@ function element(base, opts, children) {
 }
 
 element.svg = function elementSvg(base, opts, children) {
+  "use strict";
   base = base || 'svg';
   if (!base.cloneNode) {
     base = document.createElementNS(base, "http://www.w3.org/2000/svg");
