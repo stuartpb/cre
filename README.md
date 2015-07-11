@@ -2,7 +2,10 @@
 
 Micro-framework for constructing DOM nodes.
 
-`cre` is, effectively, a better `document.createElement`.
+`cre` is, effectively, a better `document.createElement`, one that will also
+work as `document.createDocumentFragment` when given an array of nodes to
+insert into the fragment, or `document.createTextNode` when given an array
+of only one string.
 
 Its interface is similar to [crel][], which I only found by searching for names
 I might give this.
