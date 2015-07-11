@@ -2,7 +2,7 @@ function element(base, opts, children) {
   "use strict";
   var classList = [];
 
-  if (typeof base != 'string' && !base.cloneNode) {
+  if (base && typeof base != 'string' && !base.cloneNode) {
     children = base;
     base = null;
   } else if (opts && typeof opts.length == 'number') {
@@ -14,7 +14,7 @@ function element(base, opts, children) {
   var elem = null;
   var i;
 
-  if (base.cloneNode) {
+  if (base && base.cloneNode) {
     elem = base.cloneNode(!children);
   } else if (typeof base == 'string') {
     var tagName;
@@ -78,8 +78,15 @@ function element(base, opts, children) {
         break;
       case 'className':
         classList.push(opts.className);
+        break;
+      case 'style':
+        for (var rule in opts.style) {
+          elem.style[rule] = opts.style[rule];
+        }
+        break;
       default:
         elem[opt] = opts[opt];
+        break;
     }
   }
 
