@@ -35,7 +35,11 @@ function cre(base, opts, children) {
       }
       i++;
     }
-    elem = document.createElement(tagName);
+    if (opts.namespaceURI) {
+      elem = document.createElementNS(opts.namespaceURI, tagName);
+    } else {
+      elem = document.createElement(tagName);
+    }
   } else if (base) {
     throw new TypeError(
       'base must be a String, something with cloneNode, or falsy');
@@ -84,6 +88,8 @@ function cre(base, opts, children) {
           elem.style[rule] = opts.style[rule];
         }
         break;
+      case 'namespaceURI': // read-only, used during element creation
+        break;
       default:
         elem[opt] = opts[opt];
         break;
@@ -96,10 +102,18 @@ function cre(base, opts, children) {
 
 cre.svg = function elementSvg(base, opts, children) {
   "use strict";
-  base = base || 'svg';
-  if (!base.cloneNode) {
-    base = document.createElementNS(base, "http://www.w3.org/2000/svg");
+  if (opts && typeof opts.length == 'number') {
+    children = opts;
+    opts = null;
   }
+
+  if (typeof base == 'string' && (base[0] == '.' || base[0] == '#')) {
+    base = 'svg' + base;
+  }
+
+  opts = opts || {};
+  opts.namespaceURI = 'http://www.w3.org/2000/svg';
+
   cre(base, opts, children);
 };
 
