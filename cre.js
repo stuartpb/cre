@@ -88,6 +88,14 @@ function cre(base, opts, children) {
           elem.style[rule] = opts.style[rule];
         }
         break;
+      case 'attributes':
+        if (typeof opts.attributes.length == 'number') {
+          for (i = 0; i < opts.attributes.length; i++) {
+            elem.setAttribute(opts.attributes[i].name,
+              opts.attributes[i].value);
+          }
+        }
+        break;
       case 'namespaceURI': // read-only, used during element creation
         break;
       default:
