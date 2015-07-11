@@ -102,7 +102,16 @@ function cre(base, opts, children) {
 
 cre.svg = function elementSvg(base, opts, children) {
   "use strict";
-  if (opts && typeof opts.length == 'number') {
+  if (base && typeof base != 'string') {
+    if (opts && typeof opts.length == 'number') {
+      children = opts;
+      opts = base;
+      base = 'svg';
+    } else {
+      children = base;
+      base = 'svg';
+    }
+  } else if (opts && typeof opts.length == 'number') {
     children = opts;
     opts = null;
   }
