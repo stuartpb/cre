@@ -18,7 +18,7 @@ function cre(base, opts, children) {
     elem = base.cloneNode(!children);
   } else if (typeof base == 'string') {
     var tagName;
-    var words = base.match(/(^|[\.\#])[^\.\#]*/g);
+    var words = base.match(/([.#]|^)[^.#]+/g);
     i = 0;
     if (words[0][0] == '.' || words[0][0] == '#') {
       // default to 'div', Jade-style
