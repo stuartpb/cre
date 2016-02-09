@@ -16,7 +16,7 @@ Its interface is similar to [FastMail][]'s [el][] function, or [crel][], which I
 
 ## Examples
 
-Here are just a few of the things you can do easily with `cre`:
+Here are just a few of the things you can do easily with `cre`, which would otherwise be [somewhat verbose and annoying](docs/counter-examples.md):
 
 ### Making template elements
 
