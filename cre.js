@@ -116,7 +116,7 @@ function cre(base, opts, children) {
   }
 
   if (classList.length > 0) {
-    elem.className = classList.join(' ');
+    elem.setAttribute('class', classList.join(' '));
   }
 
   return elem;
