@@ -145,7 +145,7 @@ cre.svg = function elementSvg(base, opts, children) {
   opts = opts || {};
   opts.namespaceURI = 'http://www.w3.org/2000/svg';
 
-  cre(base, opts, children);
+  return cre(base, opts, children);
 };
 
 cre.text = document.createTextNode;
