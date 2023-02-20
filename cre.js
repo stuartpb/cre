@@ -1,4 +1,4 @@
-function cre(base, opts, children) {
+export default function cre(base, opts, children) {
   "use strict";
   var classList = [];
 
