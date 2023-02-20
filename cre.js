@@ -73,6 +73,8 @@ function cre(base, opts, children) {
         elem = children;
       }
     }
+  } else if (!base) {
+    elem = document.createDocumentFragment();
   }
 
   for (var opt in opts) {
