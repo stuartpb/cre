@@ -138,7 +138,8 @@ cre.svg = function elementSvg(base, opts, children) {
     opts = null;
   }
 
-  if (typeof base == 'string' && (base[0] == '.' || base[0] == '#')) {
+  if (!base) base = "svg";
+  else if (typeof base == 'string' && (base[0] == '.' || base[0] == '#')) {
     base = 'svg' + base;
   }
 
