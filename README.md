@@ -80,3 +80,11 @@ var firstMiscThingInTicker = alertTicker.querySelector('.misc');
 var freshWarning = payItForwardWarning(user.favorsReceived);
 alertTicker.insertBefore(freshWarning, firstMiscThingInTicker);
 ```
+
+## Using cre for another document
+
+```js
+import CreContext from "cre";
+
+const foreignCre = new CreContext(foreignDocument);
+```
