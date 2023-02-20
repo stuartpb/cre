@@ -122,6 +122,9 @@ export default function cre(base, opts, children) {
   return elem;
 }
 
+cre.cre = cre;
+cre.html = cre;
+
 cre.svg = function elementSvg(base, opts, children) {
   "use strict";
   if (base && typeof base != 'string') {
