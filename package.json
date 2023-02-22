@@ -1,6 +1,6 @@
 {
   "name": "cre",
-  "version": "0.3.0-alpha.0",
+  "version": "0.3.0-alpha.1",
   "description": "A nicer way to create DOM content.",
   "main": "cre.js",
   "scripts": {
