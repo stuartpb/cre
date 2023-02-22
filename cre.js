@@ -23,7 +23,7 @@ export class CreContext {
     return elem || othernode;
   }
 
-  normalizeArgs(b, odd, c) {
+  normalizeArgs(b, o, c) {
     let base = b, opts = o, children = c;
     if (b && typeof b != 'string' && !b.cloneNode) {
       children = b;
