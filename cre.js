@@ -18,6 +18,7 @@ export class CreContext {
       return this.createElement(this.defaultTagName, opts, classList);
     }
     const elem = this.createElement(base, opts, classList);
+    if (elem) this.setProperties(elem, opts, classList);
     let othernode;
     if (children) othernode = this.populate(elem, children);
     return elem || othernode;
