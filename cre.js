@@ -10,7 +10,7 @@ export class CreContext {
 
     return context;
   }
-  
+
   call(b, o, c) {
     const [base, opts, children] = this.normalizeArgs(b,o,c);
     const classList = [];
@@ -33,7 +33,7 @@ export class CreContext {
       children = o;
       opts = null;
     }
-  
+
     opts = opts || {};
     return [base, opts, children];
   }
@@ -67,7 +67,7 @@ export class CreContext {
     const words = base.match(/([.#]|^)[^.#]+/g);
     let tagName;
     let i = 0;
-    
+
     // empty-string case
     if (words.length == 0) return this.defaultTagName;
 
@@ -119,18 +119,26 @@ export class CreContext {
     }
   }
 
+  addListener(elem, eventName, value) {
+    if (typeof (value) == "function") {
+      elem.addEventListener(eventName, value);
+    } else {
+      elem.addEventListener(eventName, value.listener, value);
+    }
+  }
+
   setProperties(elem, opts, classList) {
     for (const opt in opts) {
       if (Object.prototype.hasOwnProperty.call(opts, opt)) switch (opt) {
         case 'classList':
-  
+
           // If the list is empty
           if (opts.classList.length == 0) {
-  
+
             // Push a sentinel value to mark there was actually an explicitly
             // empty class marker
             classList.push('');
-  
+
           // If the list has items, append the items of the list to this one
           } else {
             Array.prototype.push.apply(classList, opts.classList);
@@ -152,6 +160,13 @@ export class CreContext {
             }
           }
           break;
+        case 'on':
+          for (const [eventName, value] of Object.entries(opts.on)) {
+            if (Array.isArray(value)) for (const item of value) {
+              this.addListener(elem, eventName, item);
+            } else this.addListener(elem, eventName, value);
+          }
+          break;
         case 'namespaceURI':
         case 'is': // read-only, used during element creation
           break;
@@ -160,10 +175,10 @@ export class CreContext {
           break;
       }
     }
-  
+
     if (classList.length > 0) {
       elem.setAttribute('class', classList.join(' '));
-    }  
+    }
   }
 }
 

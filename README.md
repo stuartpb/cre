@@ -12,6 +12,30 @@ Its interface is similar to [FastMail][]'s [el][] function, or [crel][], which I
 
 ## Usage
 
+*Pardon our dust:* This documentation needs some work (it is, after all, a pre-1.0 package): for now, here's a simple example that demonstrates the basic functionality of this module (courtesy [this tweet](https://twitter.com/salsadrunkard/status/1641247612580896769)):
+
+```js
+import cre from 'https://unpkg.com/cre@0.3.0/cre.js';
+function render() {
+  document.querySelector('#main').appendChild(cre('h1.big', 'header'));
+}
+document.addEventListener('DOMContentLoaded', render);
+```
+
+## Setting options
+
+`cre` also supports setting attributes and properties on the created element on creation, as well as adding event listeners, by adding an additional parameter with an object of options.
+
+By default, this options object's own properties will be set accordingly on the created element in its creation, with the following exceptions:
+
+- `namespaceURI` and `is` are only used during element creation and not assigned to the element itself.
+- `className` and `classList` receive special handling so that they may be mixed together, along with class specifiers in the "tag name" specifier.
+- Properties of `style` are applied recursively.
+- `attributes` applies a series of objects with `name` and `value` property pairs to the element (this interface will likely change soon).
+- Properties of `on` are treated as event names, and `addEventListener` is called on either the value of the property, or of every value of the array in the property. Listeners that need to be added with options can provide an object with those options as properties, and the listener specified as the `listener` method of the property.
+
+## Effective use
+
 `cre` works best when you're passing it to `appendChild` or `insertBefore`. `cre` also works best when you use it to clone templatized nodes, rather than constructing new elements from scratch every time (because cloning DOM nodes is faster than creating elements from scratch).
 
 ## Examples
